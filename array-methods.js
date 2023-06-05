@@ -226,4 +226,64 @@ let test = grades.map(grade => {
 })
 console.log(test)
 
+// Fibonacci Solution
 
+function fibonacci(first, second, length) {
+    let series = [first, second]
+    
+    while(series.length < length) {
+        let secondNum = series.pop() // 1
+        let firstNum = series.pop() // 0
+        let sum = firstNum + secondNum
+        series.push(firstNum, secondNum, sum)
+    }
+
+    console.table(series)
+}
+
+// fibonacci(5, 8, 100)
+
+// FibonacciRecursive
+
+function fibonacciRecursive(number, arr = [0, 1]) {
+    if (arr.length == number + 1) return arr
+    arr.push(arr[arr.length - 1] + arr[arr.length - 2])
+    return fibonacciRecursive(number, arr)
+}
+
+console.log(fibonacciRecursive(10))
+
+// Titleize
+
+const readline = require("readline")
+const rl = readline.createInterface({input: process.stdin, output: process.stdout})
+
+function ask(q) {
+    return new Promise((resolve, reject) => {
+        rl.question(q, resolve)
+    })
+}
+
+
+function capitalize(str) {
+    let first = str[0].toUpperCase()
+    let rest = str.slice(1).toLowerCase()
+    return first + rest
+}
+
+let titlelize = str => {
+    return str.split(" ").map(word => capitalize(word)).join("")
+    // let strArr = str.split(" ")
+    // strArr[0] = strArr[0].toUpperCase()
+    // console.log(strArr)
+}
+
+let titlelizedWord = titlelize("The cat in the hat")
+console.log(titlelizedWord)
+
+async function start() {
+    let response = await ask("Give me a word")
+    console.log(titlelize(response))
+}
+
+start()
