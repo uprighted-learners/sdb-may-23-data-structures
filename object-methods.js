@@ -157,3 +157,44 @@ let menu = {
 
 console.log(menu.order("burger, potato"))
 
+
+// Class GPA Calculator
+
+const readline = require("readline")
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout})
+
+let ask = (q) => {
+    return new Promise((resolve, reject) => {
+        rl.question(q, resolve)
+    })
+}
+
+let grades = {
+    midterm: { grade: 3.3, weight: 1 },
+    project: { grade: 4.0, weight: 1 },
+    final: { grade: 3.2, weight: 2 },
+}
+
+let gpa = (obj) => {
+    let gradesToWeight = Object.keys(obj)
+    let gradeSum = 0, weightSum = 0
+    gradesToWeight.forEach(key => {
+        gradeSum += obj[key].grade * obj[key].weight
+        weightSum += obj[key].weight
+    })
+    return gradeSum / weightSum
+}
+console.log("---------------------------------")
+
+async function start() {
+    console.log(grades.midterm)
+    grades.midterm.grade = await ask("What is your midterm grade?")
+    grades.midterm.grade = Number(grades.midterm.grade)
+    grades.project.grade = await ask("Project grade?")
+    grades.project.grade = Number(grades.project.grade)
+    grades.final.grade = await ask("Final grade?")
+    grades.final.grade = Number(grades.final.grade)
+    console.log(gpa(grades))
+}
+
+start()
