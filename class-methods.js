@@ -195,3 +195,93 @@ class Avengers {
 let ironMan = new Avengers("Iron Man", "rich", 35, true, "Iron Man")
 console.log(ironMan)
 console.log(ironMan.whichTeam())
+
+// ? Cake factory solution
+
+class Cake {
+    constructor(flavor, icing = "none", decoration = "none") {
+        this.flavor = flavor || "none"
+        this.icing = icing
+        this.decoration = decoration
+        this.size = 12
+    }
+    
+    describe() {
+        return `${this.flavor}, ${this.icing}, ${this.decoration}`
+    }
+
+    eat(slice) {
+        this.size = this.size - slice
+        return `We have ${this.size} slices of ${this.flavor}`
+    }
+}
+
+let opera = new Cake("buttercream & coffee", "buttercream", "none")
+let strawberry = new Cake("strawberry shortcake", "cream", "strawberry drizzle")
+let carrot = new Cake("carrot", "cream cheese", "carmel drizzle")
+console.log(opera.describe(), strawberry.describe(), carrot.describe())
+console.log(carrot.eat(4))
+let gateau = new Cake(...[,,"something"])
+console.log("LKDJSFLKSJFLSKDJF", gateau)
+
+
+function args() {
+    console.log(arguments)
+}
+args("potato", "one", true, 7)
+
+// ? Tag Search Solution
+
+let library = [
+    {
+      title: "A Game of Thrones",
+      tags:['fantasy', 'george r.r. martin']
+    },
+    {
+      title: "Eloquent JavaScript",
+      tags:["technology", "programming", "marijn haverbeke"]
+    },
+    {
+      title: "The Fellowship of the Ring",
+      tags:["fantasy", "jrr tolkien"]
+    },
+    {
+      title: "The Return of the King",
+      tags:["fantasy", "jrr tolkien"]
+    }
+]
+
+function search(tag, inputTitle) {
+    let result = library.filter(currentBook => currentBook.tags.includes(tag))
+    let title = []
+    library.forEach(currentBook => {
+        if (currentBook.tags.includes(tag) && currentBook.title == inputTitle) {
+            title.push(currentBook.title)
+        }
+    })
+    return [title, result]
+}
+console.log("----------------------------")
+let test = ["fantasy", "jrr tolkien"]
+function searchMany(tags) {
+    let result = []
+    library.forEach(i => {
+        tags.forEach(t => {
+            if (i.tags.includes(t)) {
+                result.push(i)
+            }
+        })
+    })
+    return result
+}
+
+function searchManyGPT(tags) {
+    return library.filter(i => {
+        tags.some(t => {
+            i.tags.includes(t)
+        })
+    })
+}
+console.log(searchManyGPT(test))
+// console.log(searchMany(test))
+// console.log(search("fantasy"))
